@@ -106,7 +106,7 @@ class UtilitySelector {
   }
 
   static FunctionReport functionReport(FunctionRecord function, Config config) {
-    final cyclomaticComplexity = function.cyclomaticLinesComplexity.values
+    final cyclomaticComplexity = function.cyclomaticComplexityLines.values
             .fold<int>(0, (prevValue, nextValue) => prevValue + nextValue) +
         1;
 

@@ -50,7 +50,7 @@ class MetricsAnalyzer {
                     .getLocation(scopedDeclaration.declaration.endToken.end)
                     .lineNumber,
                 argumentsCount: getArgumentsCount(scopedDeclaration),
-                cyclomaticLinesComplexity:
+                cyclomaticComplexityLines:
                     Map.unmodifiable(controlFlowAstVisitor.complexityLines),
                 linesWithCode: functionBodyAstVisitor.linesWithCode,
                 operators: Map.unmodifiable(halsteadVolumeAstVisitor.operators),
