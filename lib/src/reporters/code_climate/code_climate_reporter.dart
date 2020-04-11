@@ -36,14 +36,15 @@ class CodeClimateReporter implements Reporter {
             reportConfig.cyclomaticComplexityWarningLevel));
       }
 
-      if (UtilitySelector.isIssueLevel(report.linesOfCode.violationLevel)) {
-        result.add(CodeClimateIssue.linesOfCode(
+      if (UtilitySelector.isIssueLevel(
+          report.executableLinesOfCode.violationLevel)) {
+        result.add(CodeClimateIssue.executableLinesOfCode(
             func.firstLine,
             func.lastLine,
-            report.linesOfCode.value,
+            report.executableLinesOfCode.value,
             record.relativePath,
             key,
-            reportConfig.linesOfCodeWarningLevel));
+            reportConfig.executableLinesOfCodeWarningLevel));
       }
 
       if (UtilitySelector.isIssueLevel(

@@ -11,8 +11,8 @@ class ComponentReport {
   final int totalCyclomaticComplexity;
   final int totalCyclomaticComplexityViolations;
 
-  final int totalLinesOfCode;
-  final int totalLinesOfCodeViolations;
+  final int totalExecutableLinesOfCode;
+  final int totalExecutableLinesOfCodeViolations;
 
   const ComponentReport(
       {@required this.averageArgumentsCount,
@@ -21,8 +21,8 @@ class ComponentReport {
       @required this.totalMaintainabilityIndexViolations,
       @required this.totalCyclomaticComplexity,
       @required this.totalCyclomaticComplexityViolations,
-      @required this.totalLinesOfCode,
-      @required this.totalLinesOfCodeViolations});
+      @required this.totalExecutableLinesOfCode,
+      @required this.totalExecutableLinesOfCodeViolations});
 
   const ComponentReport.empty()
       : averageArgumentsCount = 0,
@@ -31,6 +31,6 @@ class ComponentReport {
         totalMaintainabilityIndexViolations = 0,
         totalCyclomaticComplexity = 0,
         totalCyclomaticComplexityViolations = 0,
-        totalLinesOfCode = 0,
-        totalLinesOfCodeViolations = 0;
+        totalExecutableLinesOfCode = 0,
+        totalExecutableLinesOfCodeViolations = 0;
 }

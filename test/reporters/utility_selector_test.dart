@@ -45,28 +45,28 @@ void main() {
       expect(
           UtilitySelector.functionViolationLevel(buildFunctionReportStub(
               cyclomaticComplexityViolationLevel: ViolationLevel.warning,
-              linesOfCodeViolationLevel: ViolationLevel.noted,
+              executableLinesOfCodeViolationLevel: ViolationLevel.noted,
               maintainabilityIndexViolationLevel: ViolationLevel.none)),
           ViolationLevel.warning);
 
       expect(
           UtilitySelector.functionViolationLevel(buildFunctionReportStub(
               cyclomaticComplexityViolationLevel: ViolationLevel.warning,
-              linesOfCodeViolationLevel: ViolationLevel.alarm,
+              executableLinesOfCodeViolationLevel: ViolationLevel.alarm,
               maintainabilityIndexViolationLevel: ViolationLevel.none)),
           ViolationLevel.alarm);
 
       expect(
           UtilitySelector.functionViolationLevel(buildFunctionReportStub(
               cyclomaticComplexityViolationLevel: ViolationLevel.none,
-              linesOfCodeViolationLevel: ViolationLevel.none,
+              executableLinesOfCodeViolationLevel: ViolationLevel.none,
               maintainabilityIndexViolationLevel: ViolationLevel.noted)),
           ViolationLevel.noted);
 
       expect(
           UtilitySelector.functionViolationLevel(buildFunctionReportStub(
               cyclomaticComplexityViolationLevel: ViolationLevel.none,
-              linesOfCodeViolationLevel: ViolationLevel.none,
+              executableLinesOfCodeViolationLevel: ViolationLevel.none,
               argumentsCountViolationLevel: ViolationLevel.warning)),
           ViolationLevel.warning);
     });

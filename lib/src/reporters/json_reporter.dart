@@ -28,7 +28,7 @@ class JsonReporter implements Reporter {
         final report = UtilitySelector.functionReport(value, reportConfig);
         return MapEntry(key, {
           ..._report(report.cyclomaticComplexity, 'cyclomatic-complexity'),
-          ..._report(report.linesOfCode, 'lines-of-code'),
+          ..._report(report.executableLinesOfCode, 'executable-lines-of-code'),
           ..._report(report.maintainabilityIndex, 'maintainability-index'),
           ..._report(report.argumentsCount, 'number-of-arguments'),
         });

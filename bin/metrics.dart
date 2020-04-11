@@ -24,7 +24,7 @@ void main(List<String> args) {
         arguments.rest,
         arguments[ignoredFilesName] as String,
         int.parse(arguments[cyclomaticComplexityThreshold] as String),
-        int.parse(arguments[linesOfCodeThreshold] as String),
+        int.parse(arguments[executableLinesOfCodeThreshold] as String),
         int.parse(arguments[numberOfArgumentsThreshold] as String),
         arguments[reporterOptionName] as String,
         arguments[verboseName] as bool);
@@ -48,7 +48,7 @@ void _runAnalysis(
     Iterable<String> analysisDirectories,
     String ignoreFilesPattern,
     int cyclomaticComplexityThreshold,
-    int linesOfCodeThreshold,
+    int executableLinesOfCodeThreshold,
     int numberOfArgumentsWarningLevel,
     String reporterType,
     bool verbose) {
@@ -72,7 +72,7 @@ void _runAnalysis(
 
   final config = Config(
       cyclomaticComplexityWarningLevel: cyclomaticComplexityThreshold,
-      linesOfCodeWarningLevel: linesOfCodeThreshold,
+      executableLinesOfCodeWarningLevel: executableLinesOfCodeThreshold,
       numberOfArgumentsWarningLevel: numberOfArgumentsWarningLevel);
 
   Reporter reporter;

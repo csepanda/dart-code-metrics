@@ -7,7 +7,7 @@ const usageHeader = 'Usage: metrics [options...] <directories>';
 const helpFlagName = 'help';
 const reporterOptionName = 'reporter';
 const cyclomaticComplexityThreshold = 'cyclomatic-complexity';
-const linesOfCodeThreshold = 'lines-of-code';
+const executableLinesOfCodeThreshold = 'executable-lines-of-code';
 const numberOfArgumentsThreshold = 'number-of-arguments';
 const verboseName = 'verbose';
 const ignoredFilesName = 'ignore-files';
@@ -29,11 +29,12 @@ ArgParser argumentsParser() => ArgParser()
       callback: (String i) {
     if (int.tryParse(i) == null) print('$cyclomaticComplexityThreshold:');
   })
-  ..addOption(linesOfCodeThreshold,
-      help: 'Lines of code threshold',
-      valueHelp: '$linesOfCodeDefaultWarningLevel',
-      defaultsTo: '$linesOfCodeDefaultWarningLevel', callback: (String i) {
-    if (int.tryParse(i) == null) print('$linesOfCodeThreshold:');
+  ..addOption(executableLinesOfCodeThreshold,
+      help: 'Executable lines of code threshold',
+      valueHelp: '$executableLinesOfCodeDefaultWarningLevel',
+      defaultsTo: '$executableLinesOfCodeDefaultWarningLevel',
+      callback: (String i) {
+    if (int.tryParse(i) == null) print('$executableLinesOfCodeThreshold:');
   })
   ..addOption(numberOfArgumentsThreshold,
       help: 'Number of arguments threshold',

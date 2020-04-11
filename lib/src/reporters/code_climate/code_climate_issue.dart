@@ -53,12 +53,12 @@ class CodeClimateIssue {
     return CodeClimateIssue._(name, desc, location, fingerprint);
   }
 
-  factory CodeClimateIssue.linesOfCode(int startLine, int endLine, int value,
-      String fileName, String functionName, int threshold) {
+  factory CodeClimateIssue.executableLinesOfCode(int startLine, int endLine,
+      int value, String fileName, String functionName, int threshold) {
     final desc =
-        'Function `$functionName` has $value lines of code (exceeds $threshold allowed). Consider refactoring.';
+        'Function `$functionName` has $value executable lines of code (exceeds $threshold allowed). Consider refactoring.';
     return CodeClimateIssue._create(
-        'linesOfCode', desc, startLine, endLine, fileName);
+        'executableLinesOfCode', desc, startLine, endLine, fileName);
   }
 
   factory CodeClimateIssue.cyclomaticComplexity(int startLine, int endLine,

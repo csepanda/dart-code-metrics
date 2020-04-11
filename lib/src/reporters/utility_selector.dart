@@ -34,10 +34,11 @@ class UtilitySelector {
           totalCyclomaticComplexityViolations:
               prevValue.totalCyclomaticComplexityViolations +
                   report.totalCyclomaticComplexityViolations,
-          totalLinesOfCode:
-              prevValue.totalLinesOfCode + report.totalLinesOfCode,
-          totalLinesOfCodeViolations: prevValue.totalLinesOfCodeViolations +
-              report.totalLinesOfCodeViolations);
+          totalExecutableLinesOfCode: prevValue.totalExecutableLinesOfCode +
+              report.totalExecutableLinesOfCode,
+          totalExecutableLinesOfCodeViolations:
+              prevValue.totalExecutableLinesOfCodeViolations +
+                  report.totalExecutableLinesOfCodeViolations);
     });
 
     return ComponentReport(
@@ -51,16 +52,17 @@ class UtilitySelector {
         totalCyclomaticComplexity: report.totalCyclomaticComplexity,
         totalCyclomaticComplexityViolations:
             report.totalCyclomaticComplexityViolations,
-        totalLinesOfCode: report.totalLinesOfCode,
-        totalLinesOfCodeViolations: report.totalLinesOfCodeViolations);
+        totalExecutableLinesOfCode: report.totalExecutableLinesOfCode,
+        totalExecutableLinesOfCodeViolations:
+            report.totalExecutableLinesOfCodeViolations);
   }
 
   static ComponentReport componentReport(
       ComponentRecord record, Config config) {
     var totalCyclomaticComplexity = 0;
     var totalCyclomaticComplexityViolations = 0;
-    var totalLinesOfCode = 0;
-    var totalLinesOfCodeViolations = 0;
+    var totalExecutableLinesOfCode = 0;
+    var totalExecutableLinesOfCodeViolations = 0;
     var averageMaintainabilityIndex = 0.0;
     var totalMaintainabilityIndexViolations = 0;
     var totalArgumentsCount = 0;
@@ -74,9 +76,9 @@ class UtilitySelector {
         ++totalCyclomaticComplexityViolations;
       }
 
-      totalLinesOfCode += report.linesOfCode.value;
-      if (isIssueLevel(report.linesOfCode.violationLevel)) {
-        ++totalLinesOfCodeViolations;
+      totalExecutableLinesOfCode += report.executableLinesOfCode.value;
+      if (isIssueLevel(report.executableLinesOfCode.violationLevel)) {
+        ++totalExecutableLinesOfCodeViolations;
       }
 
       averageMaintainabilityIndex += report.maintainabilityIndex.value;
@@ -101,8 +103,9 @@ class UtilitySelector {
         totalCyclomaticComplexity: totalCyclomaticComplexity,
         totalCyclomaticComplexityViolations:
             totalCyclomaticComplexityViolations,
-        totalLinesOfCode: totalLinesOfCode,
-        totalLinesOfCodeViolations: totalLinesOfCodeViolations);
+        totalExecutableLinesOfCode: totalExecutableLinesOfCode,
+        totalExecutableLinesOfCodeViolations:
+            totalExecutableLinesOfCodeViolations);
   }
 
   static FunctionReport functionReport(FunctionRecord function, Config config) {
@@ -110,7 +113,7 @@ class UtilitySelector {
             .fold<int>(0, (prevValue, nextValue) => prevValue + nextValue) +
         1;
 
-    final linesOfCode = function.linesWithCode.length;
+    final executableLinesOfCode = function.linesWithCode.length;
 
     // Total number of occurrences of operators.
     final totalNumberOfOccurrencesOfOperators = function.operators.values
@@ -143,7 +146,7 @@ class UtilitySelector {
             (171 -
                     5.2 * log(max(1, halsteadVolume)) -
                     0.23 * cyclomaticComplexity -
-                    16.2 * log(max(1, linesOfCode))) *
+                    16.2 * log(max(1, executableLinesOfCode))) *
                 100 /
                 171)
         .toDouble();
@@ -153,10 +156,10 @@ class UtilitySelector {
             value: cyclomaticComplexity,
             violationLevel: _violationLevel(
                 cyclomaticComplexity, config.cyclomaticComplexityWarningLevel)),
-        linesOfCode: FunctionReportMetric<int>(
-            value: linesOfCode,
-            violationLevel:
-                _violationLevel(linesOfCode, config.linesOfCodeWarningLevel)),
+        executableLinesOfCode: FunctionReportMetric<int>(
+            value: executableLinesOfCode,
+            violationLevel: _violationLevel(executableLinesOfCode,
+                config.executableLinesOfCodeWarningLevel)),
         maintainabilityIndex: FunctionReportMetric<double>(
             value: maintainabilityIndex,
             violationLevel:
@@ -172,7 +175,7 @@ class UtilitySelector {
 
     final highestLevelIndex = quiver.max([
       report.cyclomaticComplexity.violationLevel,
-      report.linesOfCode.violationLevel,
+      report.executableLinesOfCode.violationLevel,
       report.maintainabilityIndex.violationLevel,
       report.argumentsCount.violationLevel,
     ].map(values.indexOf));
