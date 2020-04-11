@@ -115,6 +115,8 @@ class UtilitySelector {
 
     final executableLinesOfCode = function.linesWithCode.length;
 
+    final linesOfCode = function.lastLine - function.firstLine + 1;
+
     // Total number of occurrences of operators.
     final totalNumberOfOccurrencesOfOperators = function.operators.values
         .fold<int>(0, (prevValue, nextValue) => prevValue + nextValue);
@@ -152,22 +154,27 @@ class UtilitySelector {
         .toDouble();
 
     return FunctionReport(
-        cyclomaticComplexity: FunctionReportMetric<int>(
-            value: cyclomaticComplexity,
-            violationLevel: _violationLevel(
-                cyclomaticComplexity, config.cyclomaticComplexityWarningLevel)),
-        executableLinesOfCode: FunctionReportMetric<int>(
-            value: executableLinesOfCode,
-            violationLevel: _violationLevel(executableLinesOfCode,
-                config.executableLinesOfCodeWarningLevel)),
-        maintainabilityIndex: FunctionReportMetric<double>(
-            value: maintainabilityIndex,
-            violationLevel:
-                _maintainabilityIndexViolationLevel(maintainabilityIndex)),
-        argumentsCount: FunctionReportMetric<int>(
-            value: function.argumentsCount,
-            violationLevel: _violationLevel(function.argumentsCount,
-                config.numberOfArgumentsWarningLevel)));
+      cyclomaticComplexity: FunctionReportMetric<int>(
+          value: cyclomaticComplexity,
+          violationLevel: _violationLevel(
+              cyclomaticComplexity, config.cyclomaticComplexityWarningLevel)),
+      executableLinesOfCode: FunctionReportMetric<int>(
+          value: executableLinesOfCode,
+          violationLevel: _violationLevel(
+              executableLinesOfCode, config.executableLinesOfCodeWarningLevel)),
+      maintainabilityIndex: FunctionReportMetric<double>(
+          value: maintainabilityIndex,
+          violationLevel:
+              _maintainabilityIndexViolationLevel(maintainabilityIndex)),
+      argumentsCount: FunctionReportMetric<int>(
+          value: function.argumentsCount,
+          violationLevel: _violationLevel(
+              function.argumentsCount, config.numberOfArgumentsWarningLevel)),
+      linesOfCode: FunctionReportMetric<int>(
+          value: linesOfCode,
+          violationLevel:
+              _violationLevel(linesOfCode, config.linesOfCodeWarningLevel)),
+    );
   }
 
   static ViolationLevel functionViolationLevel(FunctionReport report) {
@@ -178,6 +185,7 @@ class UtilitySelector {
       report.executableLinesOfCode.violationLevel,
       report.maintainabilityIndex.violationLevel,
       report.argumentsCount.violationLevel,
+      report.linesOfCode.violationLevel,
     ].map(values.indexOf));
 
     return values.elementAt(highestLevelIndex);

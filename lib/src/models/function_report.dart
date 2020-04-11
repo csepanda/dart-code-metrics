@@ -7,10 +7,13 @@ class FunctionReport {
   final FunctionReportMetric<int> executableLinesOfCode;
   final FunctionReportMetric<double> maintainabilityIndex;
   final FunctionReportMetric<int> argumentsCount;
+  final FunctionReportMetric<int> linesOfCode;
 
-  const FunctionReport(
-      {@required this.cyclomaticComplexity,
-      @required this.executableLinesOfCode,
-      @required this.maintainabilityIndex,
-      @required this.argumentsCount});
+  const FunctionReport({
+    @required this.cyclomaticComplexity,
+    @required this.executableLinesOfCode,
+    @required this.maintainabilityIndex,
+    @required this.argumentsCount,
+    @required this.linesOfCode,
+  });
 }

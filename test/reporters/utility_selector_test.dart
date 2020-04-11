@@ -24,7 +24,23 @@ void main() {
       expect(report.averageArgumentsCount, 5);
       expect(report.totalArgumentsCountViolations, 2);
     });
-    group('functionReport calculate report for function', () {
+    group('functionReport calculates report for function', () {
+      test('with few lines', () {
+        final record = buildFunctionRecordStub(firstLine: 10, lastLine: 19);
+        final report = UtilitySelector.functionReport(record, Config());
+
+        expect(report.linesOfCode.value, 10);
+        expect(report.linesOfCode.violationLevel, ViolationLevel.none);
+      });
+
+      test('with a lot of lines', () {
+        final record = buildFunctionRecordStub(firstLine: 100, lastLine: 219);
+        final report = UtilitySelector.functionReport(record, Config());
+
+        expect(report.linesOfCode.value, 120);
+        expect(report.linesOfCode.violationLevel, ViolationLevel.warning);
+      });
+
       test('without arguments', () {
         final record = buildFunctionRecordStub(argumentsCount: 0);
         final report = UtilitySelector.functionReport(record, Config());
@@ -32,6 +48,7 @@ void main() {
         expect(report.argumentsCount.value, 0);
         expect(report.argumentsCount.violationLevel, ViolationLevel.none);
       });
+
       test('with a lot of arguments', () {
         final record = buildFunctionRecordStub(argumentsCount: 10);
         final report = UtilitySelector.functionReport(record, Config());
@@ -69,6 +86,13 @@ void main() {
               executableLinesOfCodeViolationLevel: ViolationLevel.none,
               argumentsCountViolationLevel: ViolationLevel.warning)),
           ViolationLevel.warning);
+
+      expect(
+          UtilitySelector.functionViolationLevel(buildFunctionReportStub(
+              executableLinesOfCodeViolationLevel: ViolationLevel.none,
+              linesOfCodeViolationLevel: ViolationLevel.alarm,
+              argumentsCountViolationLevel: ViolationLevel.warning)),
+          ViolationLevel.alarm);
     });
     test('isIssueLevel', () {
       const violationsMapping = {
